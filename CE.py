@@ -24,4 +24,11 @@ def learn(concept, target):
             for j in range(len(specific_h)):
                 if h[j]!=specific_h[j]:
                     general_h[j][j]=specific_h[j]
+    indices=[i for i,val in enumerate(general_h) if val==['?' for i in range(len(specific_h))]]
+    for i in indices:
+        general_h.remove(['?' for i in range(len(specific_h))])
+    return specific_h, general_h
+s_final, g_final=learn(concept,target)
+print("Final S:", s_final)
+print("Final G:",g_final)
                 
