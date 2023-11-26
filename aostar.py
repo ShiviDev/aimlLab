@@ -6,8 +6,10 @@ class Graph:
         self.parent={}
         self.solutionGraph={}
         self.status={}
+
     def getNeighbors(self,v):
         return self.graph.get(v,'')
+    
     def getStatus(self,v):
         return self.status.get(v,0)
     
@@ -33,11 +35,11 @@ class Graph:
         minimumCost=0
         costToChildNodeListDict={}
         costToChildNodeListDict[minimumCost]=[]
-        flag=True
-        for nodeTuple in self.getNeighbors(v):
+        flag=True #determine if its processing the first set of child nodes.
+        for nodeInfoTupleList in self.getNeighbors(v):
             cost=0
             nodeList=[]
-            for n, weight in nodeTuple:
+            for n, weight in nodeInfoTupleList:
                 cost=cost+self.getHeuristicNodeValue(n)+weight
                 nodeList.append(n)
             if flag==True:
@@ -55,7 +57,7 @@ class Graph:
         print("solution graph: ",self.solutionGraph)
         print("currently processing node: ",v)
         print("------------------------------")
-        if self.getStatus(v)>=0:
+        if self.getStatus(v)>=0: #unexplored node
             min, nodeList = self.computeMinimumCostChildNodes(v)
             print(min,nodeList)
             self.setHeuristicNodeValue(v,min)

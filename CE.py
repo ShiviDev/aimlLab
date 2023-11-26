@@ -2,11 +2,10 @@ import pandas as pd
 import numpy as np
 
 data = pd.read_csv('Training_examples.csv')
-concept = np.array(data)[1:,1:-1]
+concept = np.array(data)[:,:-1]
 print('learning concept is')
 print(concept)
-
-target= np.array(data)[1:,-1]
+target= np.array(data)[:,-1]
 print('target')
 print(target)
 

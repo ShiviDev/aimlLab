@@ -1,7 +1,7 @@
 def aStar(start_node, end_node):
-    g={}
-    open_set=set(start_node)
-    closed_set=set()
+    g={} #dictonary that stores the distance from the starting node to each node.
+    open_set=set(start_node) #nodes to be explored initially
+    closed_set=set() #set that contains nodes already explored
     parent={}
     parent[start_node]=start_node
     g[start_node]=0
@@ -11,7 +11,7 @@ def aStar(start_node, end_node):
             if n==None or g[n]+heuristic(n)>g[v]+heuristic(v):
                 n=v
         if n==end_node or Graph_nodes[n]==None:
-            pass
+            pass #nothing happens
         else:
             for (m,weight) in get_neighbors(n):
                 if m not in open_set and m not in closed_set:
