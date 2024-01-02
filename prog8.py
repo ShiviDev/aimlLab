@@ -6,7 +6,7 @@ def loadDataset(filename, split, trainingSet=[],testSet=[]):
     with open(filename) as csvfile:
         lines =csv.reader(csvfile)
         dataset=list(lines)
-       # print('lenght of dataset'+repr(len(dataset))) //150
+
         for x in range(len(dataset)-1):
             for y in range(4):
                 dataset[x][y]=float(dataset[x][y])
@@ -58,8 +58,8 @@ def main():
 
     loadDataset('KNN-input.csv',split,trainingSet,testSet)
 
-    print('\n Number of Training data:'+(repr(len(trainingSet))))
-    print('Number of Test Data:'+(repr(len(testSet))))
+    print('\n Number of Training data:',len(trainingSet))
+    print('Number of Test Data:',len(testSet))
     predictions=[]
     k=3
     print('\n The predictions are:')
@@ -67,8 +67,8 @@ def main():
         neighbors=getNeighbors(trainingSet,testSet[x],k)
         result=getResponse(neighbors)
         predictions.append(result)
-        print('predicted='+repr(result)+',actual='+repr(testSet[x][-1]))
+        print('predicted=',result,',actual=',testSet[x][-1])
     accuracy=getAccuracy(testSet,predictions)
-    print('\n The Accuracy is:'+repr(accuracy)+'%')
+    print('\n The Accuracy is:',accuracy,'%')
 
 main()

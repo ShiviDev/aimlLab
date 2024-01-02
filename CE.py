@@ -13,7 +13,7 @@ def learn(concept, target):
     specific_h=concept[0].copy()
     general_h=[['?' for i in range(len(specific_h))] for i in range(len(specific_h))]
     
-    for i,h in enumerate(concept):
+    for i,h in enumerate(concept): #index i, row h
         if target[i]=='Yes':
             for j in range(len(specific_h)):
                 if h[j]!=specific_h[j]:

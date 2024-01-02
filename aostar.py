@@ -36,10 +36,10 @@ class Graph:
         costToChildNodeListDict={} #cost to child node, with cost as key, and array of node as value
         costToChildNodeListDict[minimumCost]=[]
         flag=True #determine if its processing the first set of child nodes.
-        for nodeInfoTupleList in self.getNeighbors(v):#each key has an array of array of (node,weights)
+        for nodeInfoTupleList in self.getNeighbors(v):#returns [[(node,weights)],[(nod,weight)]]
             cost=0
             nodeList=[]
-            for n, weight in nodeInfoTupleList:
+            for n, weight in nodeInfoTupleList:#[(node,weights),(node,weights)]
                 cost=cost+self.getHeuristicNodeValue(n)+weight
                 nodeList.append(n)
             if flag==True:
@@ -61,18 +61,18 @@ class Graph:
             min, nodeList = self.computeMinimumCostChildNodes(v)
             print(min,nodeList)
             self.setHeuristicNodeValue(v,min)
-            self.setStatus(v,len(nodeList))
-            solution=True
+            #self.setStatus(v,len(nodeList))
+            solution=True #solution found
             for n in nodeList:
-                self.parent[n]=v
+                self.parent[n]=v #set parent
                 if self.getStatus(n)!=-1:
-                    solution=False
-            if solution==True:
-                self.setStatus(v,-1)
+                    solution=False #soultion set to false
+            if solution==True: #nodes have been fully explored
+                self.setStatus(v,-1) #set the parents status to fully explore
                 self.solutionGraph[v]=nodeList
-            if v!=self.start:
+            if v!=self.start: #not the starting node allow backtracking
                 self.aoStar(self.parent[v],True)
-            if backTracking==False:
+            if backTracking==False: #initially, explore the given path fully
                 for node in nodeList:
                     self.setStatus(node,0)
                     self.aoStar(node,False)
