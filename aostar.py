@@ -33,10 +33,10 @@ class Graph:
 
     def computeMinimumCostChildNodes(self, v):
         minimumCost=0
-        costToChildNodeListDict={}
+        costToChildNodeListDict={} #cost to child node, with cost as key, and array of node as value
         costToChildNodeListDict[minimumCost]=[]
         flag=True #determine if its processing the first set of child nodes.
-        for nodeInfoTupleList in self.getNeighbors(v):
+        for nodeInfoTupleList in self.getNeighbors(v):#each key has an array of array of (node,weights)
             cost=0
             nodeList=[]
             for n, weight in nodeInfoTupleList:

@@ -26,6 +26,7 @@ scaler=preprocessing.StandardScaler()
 scaler.fit(x)
 xsa=scaler.transform(x)
 xs=pd.DataFrame(xsa,columns=x.columns)
+
 gmm=GaussianMixture(n_components=3)
 gmm.fit(xs)
 y_gmm=gmm.predict(xs)

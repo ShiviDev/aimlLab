@@ -6,7 +6,7 @@ def aStar(start_node, end_node):
     parent[start_node]=start_node
     g[start_node]=0
     while len(open_set)>0:
-        n=None
+        n=None #current node
         for v in open_set:
             if n==None or g[n]+heuristic(n)>g[v]+heuristic(v):
                 n=v
@@ -21,7 +21,7 @@ def aStar(start_node, end_node):
                 else:
                     if g[m]>g[n]+weight:
                         g[m]=g[n]+weight
-                        parent[m]=n
+                        parent[m]=n #adding unexplored nodes to open set
                         if m in closed_set:
                             closed_set.remove(m)
                             open_set.add(m)
@@ -35,9 +35,9 @@ def aStar(start_node, end_node):
                 n=parent[n]
             path.append(start_node)
             path.reverse()
-            print('Path found:{}'.format(path))
+            print('Path found:',path)
             return path
-        open_set.remove(n)
+        open_set.remove(n) #n is full explored for now, add it to closed set
         closed_set.add(n)
     print('Path does not exist!')
     return None

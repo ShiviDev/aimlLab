@@ -4,13 +4,13 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans #singular cluster plural KMeans
 
-iris = datasets.load_iris()
+iris = datasets.load_iris() #load iris and not iris load
 x=pd.DataFrame(iris.data)
-x.columns=['Sepal_Length','Sepal_Width','Petal_Length','Petal_Width']
-y=pd.DataFrame(iris.target)
-y.columns=['Targets']
+x.columns=['Sepal_Length','Sepal_Width','Petal_Length','Petal_Width'] # x.columns and not column
+y=pd.DataFrame(iris.target) #Data from in capital
+y.columns=['Targets'] #plural
 
 plt.figure(figsize=(14,7))
 colormap=np.array(['red','lime','black'])
@@ -29,9 +29,11 @@ colormap=np.array(['red','lime','black'])
 plt.subplot(1,2,1)
 plt.scatter(x.Petal_Length,x.Petal_Width,c=colormap[y.Targets],s=40)
 plt.title('Real')
+
 plt.subplot(1,2,2)
-plt.scatter(x.Petal_Length,x.Petal_Width,c=colormap[model.labels_],s=40)
+plt.scatter(x.Petal_Length,x.Petal_Width,c=colormap[model.labels_],s=40) #model.labels_ to be remembered. x cord, y cord, color of points, size of points
 plt.title('kmeans')
+
 print("accuracy_score",accuracy_score(y.Targets,model.labels_))
 print("confusion_matrix\n",confusion_matrix(y.Targets,model.labels_))
 #plt.show()
