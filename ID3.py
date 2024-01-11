@@ -10,7 +10,7 @@ class node:
 def entropy(data):
     total_ex=len(data)
     p_ex=len(data.loc[data['PlayTennis']=='Yes'])
-    n_ex=total_ex-p_ex
+    n_ex = len(data.loc[data['PlayTennis']=='No'])
     en=0
     if(p_ex>0):
         en=-(p_ex/float(total_ex))*(math.log(p_ex,2)-math.log(total_ex,2))
@@ -18,35 +18,32 @@ def entropy(data):
         en+=-(n_ex/float(total_ex))*(math.log(n_ex,2)-math.log(total_ex,2))
     return en
 
-def gain(data, attrib, en):
-    values=set(data[attrib])
-    gain=en
+def gain(en_s,data_s,attrib):
+    values=set(data_s[attrib])
+    gain=en_s
     for value in values:
-        gain-=len(data.loc[data[attrib]==value])/float(len(data))*entropy(data.loc[data[attrib]==value])
+        gain-=len(data_s.loc[data_s[attrib]==value])/float(len(data_s))*entropy(data_s.loc[data_s[attrib]==value])
     return gain
 
 def get_attr(data):
-    attrib=""
-    en=entropy(data)
-    maxgain=0
+    attribute=""
+    en_s=entropy(data)
+    max_gain=0
     for attr in data.columns[:len(data.columns)-1]:
-        g=gain(data, attr, en)
-        if maxgain<g:
-            maxgain=g
-            attrib=attr
-    return attrib
+        g=gain(en_s,data,attr)
+        if g>max_gain:
+            max_gain=g
+            attribute=attr
+    return attribute
 
 def decision_tree(data):
-    root=node("null")
-    if entropy(data)==0:
-        # ahh, i think here issue
-        # 5         Cool   Normal         No
-        # 13        Mild     High         No
-        # these two cases ge, but i have else statement na, ha but while indexin here, its throwin error cos we aint able to find ig T_Thuh
-        if len(data.loc[data[data.columns[-1]]=="Yes"])==len(data):
-            root.label='Yes'
+    root=node("NULL")
+    if(entropy(data)==0):
+        if(len(data.loc[data[data.columns[-1]]=="Yes"])==len(data)):
+            root.label="Yes"
         else:
-            root.label='No'
+            root.label="No"
+        return root
     if len(data.columns)==1:
         return
     else:
@@ -54,10 +51,8 @@ def decision_tree(data):
         root.label=attr
         values=set(data[attr])
         for value in values:
-            print("key value ->",data[attr]==value)#see full desicion_tree function once, if everything correct anthaha
             temp_value = data.loc[data[attr]==value].drop(attr,axis=1)
-            print("tempvalue ->",temp_value)
-            root.branch[value]=decision_tree(temp_value) # i think here only mostlty errbut what T_T, bari empty string '' was passed as key
+            root.branch[value]=decision_tree(temp_value)
         return root
 
 def get_rules(root, rule, rules):

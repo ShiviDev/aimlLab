@@ -25,6 +25,7 @@ def localWeightRegression(xmat,ymat,k):
 def graphPlot(X,ypred):
     sortindex=X[:,1].argsort(0)
     xsort=X[sortindex][:,0]
+    print("xsort",xsort)
     fig=plt.figure()
     ax=fig.add_subplot(1,1,1)
     ax.scatter(bill,tip,color='green')

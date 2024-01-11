@@ -4,7 +4,7 @@ te=len(data) #total events
 np=len(data.loc[data[data.columns[-1]]=='Yes']) #number of positive
 nn=te-np #number of negative
 training=data.sample(frac=0.75,replace=False)
-test=pd.concat([data,training,training]).drop_duplicates(keep=False)
+test=pd.concat([data,training]).drop_duplicates(keep=False)
 print('Training Set:\n',training)
 print('\nTest Data Set:\n',test)
 prob={}
